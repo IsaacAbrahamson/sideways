@@ -1,0 +1,14 @@
+{
+  "name": "sideways",
+  "version": "0.0.3",
+  "description": "A browser JavaScript library for creating sideways page sections.",
+  "main": "index.js",
+  "author": "Isaac Abrahamson",
+  "license": "MIT",
+  "scripts": {
+    "build": "rollup ./src/main.js --output.format umd --name \"sideways\" --output.file index.js"
+  },
+  "devDependencies": {
+    "rollup": "^0.56.2"
+  }
+}
