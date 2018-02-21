@@ -1,6 +1,4 @@
-![sideways](https://raw.githubusercontent.com/IsaacAbrahamson/sideways/master/demo.svg)
-
-Sideways.js
+![sideways](https://raw.githubusercontent.com/IsaacAbrahamson/sideways/master/demo.png)
 
 A browser JavaScript library for creating sideways page sections.
 
