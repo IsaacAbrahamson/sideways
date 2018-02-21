@@ -1,6 +1,6 @@
 {
   "name": "sideways",
-  "version": "0.1.0",
+  "version": "0.1.2",
   "description": "A browser JavaScript library for creating sideways page sections.",
   "main": "index.js",
   "author": "Isaac Abrahamson",
