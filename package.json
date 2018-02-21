@@ -6,9 +6,11 @@
   "author": "Isaac Abrahamson",
   "license": "MIT",
   "scripts": {
-    "build": "rollup ./src/main.js --output.format umd --name \"sideways\" --output.file index.js"
+    "build": "rollup ./src/main.js --output.format umd --name \"sideways\" --output.file index.js",
+    "uglify": "uglifyjs index.js --compress --mangle -o index.min.js"
   },
   "devDependencies": {
-    "rollup": "^0.56.2"
+    "rollup": "^0.56.2",
+    "uglify-es": "^3.3.9"
   }
 }
