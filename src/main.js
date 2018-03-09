@@ -19,12 +19,18 @@ function moveToPage(pageNumber) {
   elements.container.style.transform = `translate3d(-${elements.pageWidth * pageNumber}px, 0px, 0px)`
 }
 
-function movePageLeft() {
-  moveToPage(--currentPage)
+async function movePageLeft() {
+  styles.addAnimation()
+  moveToPage(--currentPage)  
+  await delay(300)
+  styles.removeAnimation()
 }
 
-function movePageRight() {
+async function movePageRight() {
+  styles.addAnimation()
   moveToPage(++currentPage)
+  await delay(300)
+  styles.removeAnimation()
 }
 
 // TODO functions to move directly to one page bypassing pages inbetween
@@ -41,16 +47,12 @@ function movePageRightTo(pageNumber) {
 
 function init(startingPage) {
   document.addEventListener('DOMContentLoaded', async () => {
+    styles.load()
+    
     moveToPage(startingPage)
     currentPage = startingPage
 
-    styles.load()
-
     // TODO update pages width based on pages not fixed
-
-    // TODO more flexible transition adding
-    await delay(600)
-    styles.addTransitions()
 
     addPageMoveListeners()
   })

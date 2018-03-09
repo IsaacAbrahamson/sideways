@@ -47,6 +47,10 @@ html, body {
   float: left;
   height: 100%;
 }
+
+.animated {
+  transition: all 300ms ease-out;
+}
 `);
 
 
@@ -56,16 +60,20 @@ function load() {
   document.getElementsByTagName('head')[0].appendChild(css);
 }
 
-function addTransitions() {
-  elements.sideways.style.transition = 'all .3s ease-out';
-  elements.container.style.transition = 'all .5s ease-out';
+function addAnimation() {
+  elements.container.classList.add('animated');
+}
+
+function removeAnimation() {
+  elements.container.classList.remove('animated');
 }
 
 
 
 var styles = {
   load,
-  addTransitions
+  addAnimation,
+  removeAnimation
 }
 
 const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
@@ -86,12 +94,18 @@ function moveToPage(pageNumber) {
   elements.container.style.transform = `translate3d(-${elements.pageWidth * pageNumber}px, 0px, 0px)`;
 }
 
-function movePageLeft() {
-  moveToPage(--currentPage);
+async function movePageLeft() {
+  styles.addAnimation();
+  moveToPage(--currentPage);  
+  await delay(300);
+  styles.removeAnimation();
 }
 
-function movePageRight() {
+async function movePageRight() {
+  styles.addAnimation();
   moveToPage(++currentPage);
+  await delay(300);
+  styles.removeAnimation();
 }
 
 
@@ -99,16 +113,12 @@ function movePageRight() {
 
 function init(startingPage) {
   document.addEventListener('DOMContentLoaded', async () => {
+    styles.load();
+    
     moveToPage(startingPage);
     currentPage = startingPage;
 
-    styles.load();
-
     // TODO update pages width based on pages not fixed
-
-    // TODO more flexible transition adding
-    await delay(600);
-    styles.addTransitions();
 
     addPageMoveListeners();
   });

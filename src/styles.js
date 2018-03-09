@@ -26,6 +26,10 @@ html, body {
   float: left;
   height: 100%;
 }
+
+.animated {
+  transition: all 300ms ease-out;
+}
 `)
 
 
@@ -35,14 +39,18 @@ function load() {
   document.getElementsByTagName('head')[0].appendChild(css)
 }
 
-function addTransitions() {
-  elements.sideways.style.transition = 'all .3s ease-out'
-  elements.container.style.transition = 'all .5s ease-out'
+function addAnimation() {
+  elements.container.classList.add('animated')
+}
+
+function removeAnimation() {
+  elements.container.classList.remove('animated')
 }
 
 
 
 export default {
   load,
-  addTransitions
+  addAnimation,
+  removeAnimation
 }
