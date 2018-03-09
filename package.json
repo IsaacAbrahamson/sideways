@@ -1,7 +1,12 @@
 {
   "name": "sideways",
-  "version": "0.2.1",
-  "description": "A browser JavaScript library for creating sideways page sections.",
+  "version": "0.2.2",
+  "homepage": "http://sideways.isaacabrahamson.com",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/isaacabrahamson/sideways.git"
+  },
+  "description": "A browser JavaScript library for creating fullscreen horizontal page sections.",
   "main": "index.min.js",
   "author": "Isaac Abrahamson",
   "license": "MIT",
