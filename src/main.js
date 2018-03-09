@@ -33,7 +33,7 @@ async function movePageRight() {
   styles.removeAnimation()
 }
 
-// TODO functions to move directly to one page bypassing pages inbetween
+// TODO: functions to move directly to one page bypassing pages inbetween
 function movePageleftTo(pageNumber) {
 
 }
@@ -52,7 +52,7 @@ function init(startingPage) {
     moveToPage(startingPage)
     currentPage = startingPage
 
-    // TODO update pages width based on pages not fixed
+    // TODO: update pages width based on pages not fixed
 
     addPageMoveListeners()
 
