@@ -1,9 +1,9 @@
 import elements from './elements'
 import styles from './styles'
-
-const delay = ms => new Promise(resolve => setTimeout(resolve, ms))
+import { delay } from './utils'
 
 let currentPage = 0
+
 
 
 // private functions
@@ -16,7 +16,7 @@ function addPageMoveListeners() {
 
 // exported functions
 function moveToPage(pageNumber) {
-  elements.container.style.transform = `translate3d(-${document.querySelector('.sideways').offsetWidth * pageNumber}px, 0px, 0px)`
+  elements.container.style.transform = `translate3d(-${elements.sideways.offsetWidth * pageNumber}px, 0px, 0px)`
 }
 
 async function movePageLeft() {
@@ -44,26 +44,22 @@ function movePageRightTo(pageNumber) {
 
 
 
-
 function init(startingPage) {
-  document.addEventListener('DOMContentLoaded', async () => {
-    styles.load()
-    
+  document.addEventListener('DOMContentLoaded', () => {    
     moveToPage(startingPage)
     currentPage = startingPage
+    styles.load()
 
-    // TODO: update pages width based on pages not fixed
-
-    addPageMoveListeners()
-
+    // event listeners
     window.addEventListener('resize', () => {
-      elements.updateWidth()
       styles.updateWidth()
-      moveToPage(currentPage)
-      console.log('resize!')
-    })
+      moveToPage(currentPage) // center new page size in viewport
+    })    
+    addPageMoveListeners()
   })
 }
+
+
 
 export {
   init,

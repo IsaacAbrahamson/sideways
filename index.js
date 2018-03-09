@@ -12,21 +12,13 @@ const pageRights = document.querySelectorAll('.page-right');
 const pages = document.querySelectorAll('.page');
 const numPages = pages.length;
 
-let pageWidth = document.querySelector('.sideways').offsetWidth;
-
-function updateWidth() {
-  pageWidth = document.querySelector('.sideways').offsetWidth;
-}
-
 var elements = {
   sideways,
   container,
   pageLefts,
   pageRights,
   pages,
-  pageWidth,
-  numPages,  
-  updateWidth,
+  numPages,
 }
 
 const css = document.createElement('style');
@@ -45,14 +37,14 @@ html, body {
 }
 
 .sideways > .pages {
-  width: ${elements.pageWidth * elements.numPages}px;
+  width: ${elements.sideways.offsetWidth * elements.numPages}px;
   height: 100%;
   display: block;
   position: relative;
 }
 
 .page {
-  width: ${elements.pageWidth}px;
+  width: ${elements.sideways.offsetWidth}px;
   float: left;
   height: 100%;
 }
@@ -70,10 +62,10 @@ function load() {
   document.getElementsByTagName('head')[0].appendChild(css);
 }
 
-function updateWidth$1() {
-  elements.container.style.width = `${document.querySelector('.sideways').offsetWidth * elements.numPages}px`;
+function updateWidth() {
+  elements.container.style.width = `${elements.sideways.offsetWidth * elements.numPages}px`;
   for (let page of elements.pages) {
-    page.style.width = `${document.querySelector('.sideways').offsetWidth}px`;
+    page.style.width = `${elements.sideways.offsetWidth}px`;
   }
 }
 
@@ -91,12 +83,13 @@ var styles = {
   load,
   addAnimation,
   removeAnimation,
-  updateWidth: updateWidth$1,
+  updateWidth,
 }
 
 const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
 
 let currentPage = 0;
+
 
 
 // private functions
@@ -109,7 +102,7 @@ function addPageMoveListeners() {
 
 // exported functions
 function moveToPage(pageNumber) {
-  elements.container.style.transform = `translate3d(-${document.querySelector('.sideways').offsetWidth * pageNumber}px, 0px, 0px)`;
+  elements.container.style.transform = `translate3d(-${elements.sideways.offsetWidth * pageNumber}px, 0px, 0px)`;
 }
 
 async function movePageLeft() {
@@ -128,24 +121,18 @@ async function movePageRight() {
 
 
 
-
 function init(startingPage) {
-  document.addEventListener('DOMContentLoaded', async () => {
-    styles.load();
-    
+  document.addEventListener('DOMContentLoaded', () => {    
     moveToPage(startingPage);
     currentPage = startingPage;
+    styles.load();
 
-    // TODO update pages width based on pages not fixed
-
-    addPageMoveListeners();
-
+    // event listeners
     window.addEventListener('resize', () => {
-      elements.updateWidth();
       styles.updateWidth();
-      moveToPage(currentPage);
-      console.log('resize!');
-    });
+      moveToPage(currentPage); // center new page size in viewport
+    });    
+    addPageMoveListeners();
   });
 }
 

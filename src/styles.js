@@ -16,14 +16,14 @@ html, body {
 }
 
 .sideways > .pages {
-  width: ${elements.pageWidth * elements.numPages}px;
+  width: ${elements.sideways.offsetWidth * elements.numPages}px;
   height: 100%;
   display: block;
   position: relative;
 }
 
 .page {
-  width: ${elements.pageWidth}px;
+  width: ${elements.sideways.offsetWidth}px;
   float: left;
   height: 100%;
 }
@@ -42,9 +42,9 @@ function load() {
 }
 
 function updateWidth() {
-  elements.container.style.width = `${document.querySelector('.sideways').offsetWidth * elements.numPages}px`
+  elements.container.style.width = `${elements.sideways.offsetWidth * elements.numPages}px`
   for (let page of elements.pages) {
-    page.style.width = `${document.querySelector('.sideways').offsetWidth}px`
+    page.style.width = `${elements.sideways.offsetWidth}px`
   }
 }
 
