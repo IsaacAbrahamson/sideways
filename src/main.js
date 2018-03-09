@@ -27,6 +27,16 @@ function movePageRight() {
   moveToPage(++currentPage)
 }
 
+// TODO functions to move directly to one page bypassing pages inbetween
+function movePageleftTo(pageNumber) {
+
+}
+
+function movePageRightTo(pageNumber) {
+
+}
+
+
 
 
 function init(startingPage) {
@@ -36,7 +46,9 @@ function init(startingPage) {
 
     styles.load()
 
-    // stop 600ms page transition from showing on load
+    // TODO update pages width based on pages not fixed
+
+    // TODO more flexible transition adding
     await delay(600)
     styles.addTransitions()
 
