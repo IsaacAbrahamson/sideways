@@ -1,6 +1,6 @@
 {
   "name": "sideways",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "A browser JavaScript library for creating sideways page sections.",
   "main": "index.js",
   "author": "Isaac Abrahamson",
@@ -8,7 +8,7 @@
   "scripts": {
     "build": "rollup ./src/main.js --output.format umd --name \"sideways\" --output.file index.js",
     "uglify": "uglifyjs index.js --compress --mangle -o index.min.js",
-    "test": "copy index.min.js ./test/index.min.js"
+    "test": "copy ./index.min.js ./test/index.min.js"
   },
   "devDependencies": {
     "rollup": "^0.56.2",

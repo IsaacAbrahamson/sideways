@@ -14,7 +14,7 @@ function addPageMoveListeners() {
 
 
 
-// exported methods
+// exported functions
 function moveToPage(pageNumber) {
   elements.container.style.transform = `translate3d(-${elements.pageWidth * pageNumber}px, 0px, 0px)`
 }
