@@ -86,23 +86,17 @@ var styles = {
   updateWidth,
 }
 
-const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
-
 let currentPage = 0;
 
 
 
-// private functions
-function addPageMoveListeners() {
-  elements.pageLefts.forEach(e => e.addEventListener('click', () => movePageLeft()));
-  elements.pageRights.forEach(e => e.addEventListener('click', () => movePageRight()));
-}
-
-
-
 // exported functions
+const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
+const getCurrentPage = () => currentPage;
+
 function moveToPage(pageNumber) {
   elements.container.style.transform = `translate3d(-${elements.sideways.offsetWidth * pageNumber}px, 0px, 0px)`;
+  currentPage = pageNumber;
 }
 
 async function movePageLeft() {
@@ -119,27 +113,38 @@ async function movePageRight() {
   styles.removeAnimation();
 }
 
+// TODO: functions to move directly to one page bypassing pages inbetween
+function movePageleftTo(pageNumber) {
 
+}
+
+function movePageRightTo(pageNumber) {
+
+}
 
 function init(startingPage) {
   document.addEventListener('DOMContentLoaded', () => {    
     moveToPage(startingPage);
-    currentPage = startingPage;
     styles.load();
 
     // event listeners
     window.addEventListener('resize', () => {
       styles.updateWidth();
-      moveToPage(currentPage); // center new page size in viewport
+      moveToPage(getCurrentPage()); // center new page size in viewport
     });    
-    addPageMoveListeners();
+    elements.pageLefts.forEach(e => e.addEventListener('click', () => movePageLeft()));
+    elements.pageRights.forEach(e => e.addEventListener('click', () => movePageRight()));
   });
 }
 
 exports.init = init;
-exports.movePageRight = movePageRight;
-exports.movePageLeft = movePageLeft;
+exports.delay = delay;
 exports.moveToPage = moveToPage;
+exports.movePageLeft = movePageLeft;
+exports.movePageRight = movePageRight;
+exports.movePageleftTo = movePageleftTo;
+exports.movePageRightTo = movePageRightTo;
+exports.getCurrentPage = getCurrentPage;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 
