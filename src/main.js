@@ -14,13 +14,6 @@ function addPageMoveListeners() {
 
 
 
-// event handlers
-window.addEventListener('resize', () => {
-  styles.update()
-})
-
-
-
 // exported functions
 function moveToPage(pageNumber) {
   elements.container.style.transform = `translate3d(-${elements.pageWidth * pageNumber}px, 0px, 0px)`
@@ -62,6 +55,12 @@ function init(startingPage) {
     // TODO update pages width based on pages not fixed
 
     addPageMoveListeners()
+
+    window.addEventListener('resize', () => {
+      elements.updateWidth()
+      styles.updateWidth()
+      console.log('resize!')
+    })
   })
 }
 

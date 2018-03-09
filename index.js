@@ -10,8 +10,13 @@ const pageLefts = document.querySelectorAll('.page-left');
 const pageRights = document.querySelectorAll('.page-right');
 
 const pages = document.querySelectorAll('.page');
-const pageWidth = sideways.offsetWidth;
 const numPages = pages.length;
+
+let pageWidth = sideways.offsetWidth;
+
+function updateWidth() {
+  pageWidth = sideways.offsetWidth;
+}
 
 var elements = {
   sideways,
@@ -20,7 +25,8 @@ var elements = {
   pageRights,
   pages,
   pageWidth,
-  numPages,
+  numPages,  
+  updateWidth,
 }
 
 const css = document.createElement('style');
@@ -64,8 +70,11 @@ function load() {
   document.getElementsByTagName('head')[0].appendChild(css);
 }
 
-function updateWidth() {
-
+function updateWidth$1() {
+  elements.container.style.width = `${elements.pageWidth * elements.numPages}px`;
+  for (let page of elements.pages) {
+    page.style.width = `${elements.pageWidth}px`;
+  }
 }
 
 function addAnimation() {
@@ -82,7 +91,7 @@ var styles = {
   load,
   addAnimation,
   removeAnimation,
-  updateWidth,
+  updateWidth: updateWidth$1,
 }
 
 const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
@@ -95,13 +104,6 @@ function addPageMoveListeners() {
   elements.pageLefts.forEach(e => e.addEventListener('click', () => movePageLeft()));
   elements.pageRights.forEach(e => e.addEventListener('click', () => movePageRight()));
 }
-
-
-
-// event handlers
-window.addEventListener('resize', () => {
-  styles.update();
-});
 
 
 
@@ -137,6 +139,12 @@ function init(startingPage) {
     // TODO update pages width based on pages not fixed
 
     addPageMoveListeners();
+
+    window.addEventListener('resize', () => {
+      elements.updateWidth();
+      styles.updateWidth();
+      console.log('resize!');
+    });
   });
 }
 

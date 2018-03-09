@@ -4,8 +4,13 @@ const pageLefts = document.querySelectorAll('.page-left')
 const pageRights = document.querySelectorAll('.page-right')
 
 const pages = document.querySelectorAll('.page')
-const pageWidth = sideways.offsetWidth
 const numPages = pages.length
+
+let pageWidth = sideways.offsetWidth
+
+function updateWidth() {
+  pageWidth = sideways.offsetWidth
+}
 
 export default {
   sideways,
@@ -14,5 +19,6 @@ export default {
   pageRights,
   pages,
   pageWidth,
-  numPages,
+  numPages,  
+  updateWidth,
 }

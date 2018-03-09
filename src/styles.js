@@ -39,11 +39,13 @@ html, body {
 // exported functions
 function load() {
   document.getElementsByTagName('head')[0].appendChild(css)
-  updateWidth()
 }
 
 function updateWidth() {
-
+  elements.container.style.width = `${elements.pageWidth * elements.numPages}px`
+  for (let page of elements.pages) {
+    page.style.width = `${elements.pageWidth}px`
+  }
 }
 
 function addAnimation() {
