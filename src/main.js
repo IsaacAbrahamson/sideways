@@ -16,7 +16,7 @@ function addPageMoveListeners() {
 
 // exported functions
 function moveToPage(pageNumber) {
-  elements.container.style.transform = `translate3d(-${elements.pageWidth * pageNumber}px, 0px, 0px)`
+  elements.container.style.transform = `translate3d(-${document.querySelector('.sideways').offsetWidth * pageNumber}px, 0px, 0px)`
 }
 
 async function movePageLeft() {
@@ -59,6 +59,7 @@ function init(startingPage) {
     window.addEventListener('resize', () => {
       elements.updateWidth()
       styles.updateWidth()
+      moveToPage(currentPage)
       console.log('resize!')
     })
   })

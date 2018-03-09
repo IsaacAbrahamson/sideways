@@ -42,9 +42,9 @@ function load() {
 }
 
 function updateWidth() {
-  elements.container.style.width = `${elements.pageWidth * elements.numPages}px`
+  elements.container.style.width = `${document.querySelector('.sideways').offsetWidth * elements.numPages}px`
   for (let page of elements.pages) {
-    page.style.width = `${elements.pageWidth}px`
+    page.style.width = `${document.querySelector('.sideways').offsetWidth}px`
   }
 }
 

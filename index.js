@@ -12,10 +12,10 @@ const pageRights = document.querySelectorAll('.page-right');
 const pages = document.querySelectorAll('.page');
 const numPages = pages.length;
 
-let pageWidth = sideways.offsetWidth;
+let pageWidth = document.querySelector('.sideways').offsetWidth;
 
 function updateWidth() {
-  pageWidth = sideways.offsetWidth;
+  pageWidth = document.querySelector('.sideways').offsetWidth;
 }
 
 var elements = {
@@ -71,9 +71,9 @@ function load() {
 }
 
 function updateWidth$1() {
-  elements.container.style.width = `${elements.pageWidth * elements.numPages}px`;
+  elements.container.style.width = `${document.querySelector('.sideways').offsetWidth * elements.numPages}px`;
   for (let page of elements.pages) {
-    page.style.width = `${elements.pageWidth}px`;
+    page.style.width = `${document.querySelector('.sideways').offsetWidth}px`;
   }
 }
 
@@ -109,7 +109,7 @@ function addPageMoveListeners() {
 
 // exported functions
 function moveToPage(pageNumber) {
-  elements.container.style.transform = `translate3d(-${elements.pageWidth * pageNumber}px, 0px, 0px)`;
+  elements.container.style.transform = `translate3d(-${document.querySelector('.sideways').offsetWidth * pageNumber}px, 0px, 0px)`;
 }
 
 async function movePageLeft() {
@@ -143,6 +143,7 @@ function init(startingPage) {
     window.addEventListener('resize', () => {
       elements.updateWidth();
       styles.updateWidth();
+      moveToPage(currentPage);
       console.log('resize!');
     });
   });

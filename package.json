@@ -7,7 +7,7 @@
   "license": "MIT",
   "scripts": {
     "build": "rollup ./src/main.js --output.format umd --name \"sideways\" --output.file index.js",
-    "uglify": "uglifyjs index.js --compress --mangle -o index.min.js",
+    "uglify": "uglifyjs index.js --compress -o index.min.js",
     "test": "copy ./index.min.js ./test/index.min.js"
   },
   "devDependencies": {

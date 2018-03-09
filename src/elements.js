@@ -6,10 +6,10 @@ const pageRights = document.querySelectorAll('.page-right')
 const pages = document.querySelectorAll('.page')
 const numPages = pages.length
 
-let pageWidth = sideways.offsetWidth
+let pageWidth = document.querySelector('.sideways').offsetWidth
 
 function updateWidth() {
-  pageWidth = sideways.offsetWidth
+  pageWidth = document.querySelector('.sideways').offsetWidth
 }
 
 export default {
