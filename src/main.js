@@ -6,11 +6,18 @@ const delay = ms => new Promise(resolve => setTimeout(resolve, ms))
 let currentPage = 0
 
 
-// private methods
+// private functions
 function addPageMoveListeners() {
   elements.pageLefts.forEach(e => e.addEventListener('click', () => movePageLeft()))
   elements.pageRights.forEach(e => e.addEventListener('click', () => movePageRight()))
 }
+
+
+
+// event handlers
+window.addEventListener('resize', () => {
+  styles.update()
+})
 
 
 

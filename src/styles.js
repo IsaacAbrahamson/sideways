@@ -10,19 +10,20 @@ html, body {
 
 .sideways {
   height: 100%;
+  width: 100%;
   position: relative;
   overflow: hidden;
 }
 
 .sideways > .pages {
-  width: 300%;
+  width: ${elements.pageWidth * elements.numPages}px;
   height: 100%;
   display: block;
   position: relative;
 }
 
 .page {
-  width: 33.3333%;
+  width: ${elements.pageWidth}px;
   float: left;
   height: 100%;
 }
@@ -34,9 +35,15 @@ html, body {
 
 
 
+
 // exported functions
 function load() {
   document.getElementsByTagName('head')[0].appendChild(css)
+  updateWidth()
+}
+
+function updateWidth() {
+
 }
 
 function addAnimation() {
@@ -52,5 +59,6 @@ function removeAnimation() {
 export default {
   load,
   addAnimation,
-  removeAnimation
+  removeAnimation,
+  updateWidth,
 }

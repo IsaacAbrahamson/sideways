@@ -10,7 +10,8 @@ const pageLefts = document.querySelectorAll('.page-left');
 const pageRights = document.querySelectorAll('.page-right');
 
 const pages = document.querySelectorAll('.page');
-const pageWidth = pages[0].offsetWidth;
+const pageWidth = sideways.offsetWidth;
+const numPages = pages.length;
 
 var elements = {
   sideways,
@@ -18,7 +19,8 @@ var elements = {
   pageLefts,
   pageRights,
   pages,
-  pageWidth
+  pageWidth,
+  numPages,
 }
 
 const css = document.createElement('style');
@@ -31,19 +33,20 @@ html, body {
 
 .sideways {
   height: 100%;
+  width: 100%;
   position: relative;
   overflow: hidden;
 }
 
 .sideways > .pages {
-  width: 300%;
+  width: ${elements.pageWidth * elements.numPages}px;
   height: 100%;
   display: block;
   position: relative;
 }
 
 .page {
-  width: 33.3333%;
+  width: ${elements.pageWidth}px;
   float: left;
   height: 100%;
 }
@@ -55,9 +58,14 @@ html, body {
 
 
 
+
 // exported functions
 function load() {
   document.getElementsByTagName('head')[0].appendChild(css);
+}
+
+function updateWidth() {
+
 }
 
 function addAnimation() {
@@ -73,7 +81,8 @@ function removeAnimation() {
 var styles = {
   load,
   addAnimation,
-  removeAnimation
+  removeAnimation,
+  updateWidth,
 }
 
 const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
@@ -81,11 +90,18 @@ const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
 let currentPage = 0;
 
 
-// private methods
+// private functions
 function addPageMoveListeners() {
   elements.pageLefts.forEach(e => e.addEventListener('click', () => movePageLeft()));
   elements.pageRights.forEach(e => e.addEventListener('click', () => movePageRight()));
 }
+
+
+
+// event handlers
+window.addEventListener('resize', () => {
+  styles.update();
+});
 
 
 
