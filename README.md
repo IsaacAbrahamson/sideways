@@ -73,35 +73,42 @@ The main command used to initialize Sideways.
 ```javascript
 sideways.init(1)
 ```
-### sideways.moveToPage(pageNumber)
-Used to move to a specified page number. Sideways will immediately move to the page without any animation.
-```javascript
-sideways.moveToPage(2)
-```
-### sideways.movePageLeft()
-Smoothly slide to the next page on the left of your current page.
-```javascript
-sideways.movePageLeft()
-```
-### sideways.movePageRight()
-Smoothly slide to the next page on the right of your current page.
-```javascript
-sideways.movePageRight()
-```
-### sideways.movePageleftTo(pageNumber)
-Not implemented yet. Will allow you to slide left from your current page to any specified page.
-```javascript
-sideways.movePageleftTo(0)
-```
-### sideways.movePageRightTo(pageNumber)
-Not implemented yet. Will allow you to slide right from your current page to any specified page.
-```javascript
-sideways.movePageRightTo(2)
-```
 ### sideways.getCurrentPage()
 Gets the array index of the current page you are on.
 ```javascript
 sideways.getCurrentPage()
+```
+### sideways.getPages()
+Returns an array of all the page DOM nodes.
+```javascript
+sideways.getPages()
+```
+### sideways.moveTo(pageNumber)
+Used to move to a specified page number. Sideways will immediately move to the page without any animation.
+```javascript
+sideways.moveTo(2)
+```
+### sideways.moveLeft()
+Smoothly slide to the next page on the left of your current page.
+```javascript
+sideways.moveLeft()
+```
+### sideways.moveRight()
+Smoothly slide to the next page on the right of your current page.
+```javascript
+sideways.moveRight()
+```
+### sideways.movePageToLeft(pageNumber)
+Takes a page and moves it to the left of the current page you are on. **Moving a page updates the DOM and might update the current page index you are on. Be sure to call and `sideways.getCurrentPage()` if you need to reference your new current page number.**
+```javascript
+sideways.movePageToLeft(0)
+sideways.moveLeft()
+```
+### sideways.movePageToRight(pageNumber)
+Takes a page and moves it to the right of the current page you are on. **Moving a page updates the DOM and might update the current page index you are on. Be sure to call and `sideways.getCurrentPage()` if you need to reference your new current page number.**
+```javascript
+sideways.movePageToRight(0)
+sideways.moveRight()
 ```
 ### sideways.delay(ms)
 A promise-based implementation of setTimeout useful for `async` functions. Nothing special is added onto this method, so you may safely use the default setTimeout or your own variations of it if you desire.
@@ -110,9 +117,4 @@ async function moveSomewhere() {
   await sideways.delay(300)
   sideways.moveToPage(1)
 }
-```
-### sideways.getPages()
-Returns an array of all the page DOM nodes.
-```javascript
-sideways.getPages()
 ```

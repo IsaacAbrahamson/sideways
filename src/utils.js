@@ -56,9 +56,6 @@ function movePageToLeft(pageNumber) {
   pages = document.querySelectorAll('.page')
 }
 
-// TODO: use prototypes for insert before and after.
-// https://stackoverflow.com/questions/4793604/how-to-insert-an-element-after-another-element-in-javascript-without-using-a-lib
-
 async function movePageToRight(pageNumber) {
   let requestedPageElement = pages[pageNumber]
   let currentPageElement = pages[currentPage]
