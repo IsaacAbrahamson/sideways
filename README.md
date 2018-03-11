@@ -99,13 +99,13 @@ Smoothly slide to the next page on the right of your current page.
 sideways.moveRight()
 ```
 ### sideways.movePageToLeft(pageNumber)
-Takes a page and moves it to the left of the current page you are on. **Moving a page updates the DOM and might update the current page index you are on. Be sure to call and `sideways.getCurrentPage()` if you need to reference your new current page number.**
+Takes a page and moves it to the left of the current page you are on. **Moving a page updates the DOM and might update the current page index you are on. Be sure to call `sideways.getCurrentPage()` if you need to reference your new current page number.**
 ```javascript
 sideways.movePageToLeft(0)
 sideways.moveLeft()
 ```
 ### sideways.movePageToRight(pageNumber)
-Takes a page and moves it to the right of the current page you are on. **Moving a page updates the DOM and might update the current page index you are on. Be sure to call and `sideways.getCurrentPage()` if you need to reference your new current page number.**
+Takes a page and moves it to the right of the current page you are on. **Moving a page updates the DOM and might update the current page index you are on. Be sure to call `sideways.getCurrentPage()` if you need to reference your new current page number.**
 ```javascript
 sideways.movePageToRight(0)
 sideways.moveRight()
