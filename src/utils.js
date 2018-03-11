@@ -2,57 +2,98 @@ import elements from './elements'
 import styles from './styles'
 
 let currentPage = 0
+let pages = document.querySelectorAll('.page')
 
 
 
 // exported functions
 const delay = ms => new Promise(resolve => setTimeout(resolve, ms))
 const getCurrentPage = () => currentPage
-const getPages = () => elements.pages
+const getPages = () => pages
 
-function moveToPage(pageNumber) {
+function moveTo(pageNumber) {
   elements.container.style.transform = `translate3d(-${elements.sideways.offsetWidth * pageNumber}px, 0px, 0px)`
   currentPage = pageNumber
 }
 
-async function movePageLeft() {
+async function moveLeft() {
   styles.addAnimation()
-  moveToPage(--currentPage)  
+  moveTo(--currentPage)  
   await delay(300)
   styles.removeAnimation()
 }
 
-async function movePageRight() {
+async function moveRight() {
   styles.addAnimation()
-  moveToPage(++currentPage)
+  moveTo(++currentPage)
   await delay(300)
   styles.removeAnimation()
 }
 
-// TODO: move dom elements to work correctly
-async function movePageleftTo(pageNumber) {
-  styles.addAnimation()
-  moveToPage(pageNumber)  
-  await delay(300)
-  styles.removeAnimation()
+function movePageToLeft(pageNumber) {
+  let requestedPageElement = pages[pageNumber]
+  let currentPageElement = pages[currentPage]
+
+  if (pageNumber === currentPage) {
+    console.warn('You may not move your current page somewhere else!')
+    return
+  }
+
+  // remove requested page from pages and then move it to left of current element
+  elements.container.removeChild(requestedPageElement)
+  elements.container.insertBefore(requestedPageElement, currentPageElement)
+
+  /* Moving a page that is to the right of the current page
+   * to the left of the current page will push the current page off to the side.
+   * Increase the pageNumber to account for this added page, and the move to the
+   * new currentPage (which is actually the old)
+   */ 
+  if (pageNumber > currentPage) {
+    moveTo(++currentPage)
+  }
+
+  // update DOM
+  pages = document.querySelectorAll('.page')
 }
 
-async function movePageRightTo(pageNumber) {
-  styles.addAnimation()
-  moveToPage(pageNumber)  
-  await delay(300)
-  styles.removeAnimation()
+// TODO: use prototypes for insert before and after.
+// https://stackoverflow.com/questions/4793604/how-to-insert-an-element-after-another-element-in-javascript-without-using-a-lib
+
+async function movePageToRight(pageNumber) {
+  let requestedPageElement = pages[pageNumber]
+  let currentPageElement = pages[currentPage]
+
+  if (pageNumber === currentPage) {
+    console.warn('You may not move your current page somewhere else!')
+    return
+  }
+
+  // remove requested page from pages and then move it to left of current element
+  elements.container.removeChild(requestedPageElement)
+  elements.container.insertBefore(requestedPageElement, currentPageElement.nextSibling)
+
+  /* Moving a page that is to the left of the current page
+   * to the right of the current page will pull the current page off to the side.
+   * Decrease the pageNumber to account for this added page, and the move to the
+   * new currentPage (which is actually the old)
+   */ 
+  if (pageNumber < currentPage) {
+    moveTo(--currentPage)
+  }
+
+  // update DOM
+  pages = document.querySelectorAll('.page')
 }
 
 
 
 export {
   delay,
-  moveToPage,
-  movePageLeft,
-  movePageRight,
-  movePageleftTo,
-  movePageRightTo,
+  moveTo,
+  moveLeft,
+  moveRight,
+  movePageToLeft,
+  movePageToRight,
   getCurrentPage,
   getPages,
 }

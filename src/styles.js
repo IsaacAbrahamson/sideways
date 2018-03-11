@@ -57,6 +57,12 @@ function removeAnimation() {
 }
 
 
+// TODO: create function
+function createAnimation() {
+
+}
+
+
 
 export default {
   load,

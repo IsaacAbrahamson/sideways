@@ -4,13 +4,24 @@
 	(factory((global.sideways = {})));
 }(this, (function (exports) { 'use strict';
 
-const sideways = document.querySelector('.sideways');
-const container = document.querySelector('.sideways > .pages');
-const pageLefts = document.querySelectorAll('.page-left');
-const pageRights = document.querySelectorAll('.page-right');
+// TODO: remove this file as it doesn't update
 
-const pages = document.querySelectorAll('.page');
-const numPages = pages.length;
+let sideways = document.querySelector('.sideways');
+let container = document.querySelector('.sideways > .pages');
+let pageLefts = document.querySelectorAll('.page-left');
+let pageRights = document.querySelectorAll('.page-right');
+
+let pages = document.querySelectorAll('.page');
+let numPages = pages.length;
+
+function update() {
+  sideways = document.querySelector('.sideways');
+  container = document.querySelector('.sideways > .pages');
+  pageLefts = document.querySelectorAll('.page-left');
+  pageRights = document.querySelectorAll('.page-right');
+  pages = document.querySelectorAll('.page');
+  numPages = pages.length;
+}
 
 var elements = {
   sideways,
@@ -19,6 +30,7 @@ var elements = {
   pageRights,
   pages,
   numPages,
+  update,
 }
 
 const css = document.createElement('style');
@@ -87,70 +99,111 @@ var styles = {
 }
 
 let currentPage = 0;
+let pages$1 = document.querySelectorAll('.page');
 
 
 
 // exported functions
 const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
 const getCurrentPage = () => currentPage;
-const getPages = () => elements.pages;
+const getPages = () => pages$1;
 
-function moveToPage(pageNumber) {
+function moveTo(pageNumber) {
   elements.container.style.transform = `translate3d(-${elements.sideways.offsetWidth * pageNumber}px, 0px, 0px)`;
   currentPage = pageNumber;
 }
 
-async function movePageLeft() {
+async function moveLeft() {
   styles.addAnimation();
-  moveToPage(--currentPage);  
+  moveTo(--currentPage);  
   await delay(300);
   styles.removeAnimation();
 }
 
-async function movePageRight() {
+async function moveRight() {
   styles.addAnimation();
-  moveToPage(++currentPage);
+  moveTo(++currentPage);
   await delay(300);
   styles.removeAnimation();
 }
 
-// TODO: move dom elements to work correctly
-async function movePageleftTo(pageNumber) {
-  styles.addAnimation();
-  moveToPage(pageNumber);  
-  await delay(300);
-  styles.removeAnimation();
+function movePageToLeft(pageNumber) {
+  let requestedPageElement = pages$1[pageNumber];
+  let currentPageElement = pages$1[currentPage];
+
+  if (pageNumber === currentPage) {
+    console.warn('You may not move your current page somewhere else!');
+    return
+  }
+
+  // remove requested page from pages and then move it to left of current element
+  elements.container.removeChild(requestedPageElement);
+  elements.container.insertBefore(requestedPageElement, currentPageElement);
+
+  /* Moving a page that is to the right of the current page
+   * to the left of the current page will push the current page off to the side.
+   * Increase the pageNumber to account for this added page, and the move to the
+   * new currentPage (which is actually the old)
+   */ 
+  if (pageNumber > currentPage) {
+    moveTo(++currentPage);
+  }
+
+  // update DOM
+  pages$1 = document.querySelectorAll('.page');
 }
 
-async function movePageRightTo(pageNumber) {
-  styles.addAnimation();
-  moveToPage(pageNumber);  
-  await delay(300);
-  styles.removeAnimation();
+// TODO: use prototypes for insert before and after.
+// https://stackoverflow.com/questions/4793604/how-to-insert-an-element-after-another-element-in-javascript-without-using-a-lib
+
+async function movePageToRight(pageNumber) {
+  let requestedPageElement = pages$1[pageNumber];
+  let currentPageElement = pages$1[currentPage];
+
+  if (pageNumber === currentPage) {
+    console.warn('You may not move your current page somewhere else!');
+    return
+  }
+
+  // remove requested page from pages and then move it to left of current element
+  elements.container.removeChild(requestedPageElement);
+  elements.container.insertBefore(requestedPageElement, currentPageElement.nextSibling);
+
+  /* Moving a page that is to the left of the current page
+   * to the right of the current page will pull the current page off to the side.
+   * Decrease the pageNumber to account for this added page, and the move to the
+   * new currentPage (which is actually the old)
+   */ 
+  if (pageNumber < currentPage) {
+    moveTo(--currentPage);
+  }
+
+  // update DOM
+  pages$1 = document.querySelectorAll('.page');
 }
 
 function init(startingPage) {
   document.addEventListener('DOMContentLoaded', () => {    
-    moveToPage(startingPage);
+    moveTo(startingPage);
     styles.load();
 
     // event listeners
     window.addEventListener('resize', () => {
       styles.updateWidth();
-      moveToPage(getCurrentPage()); // center new page size in viewport
+      moveTo(getCurrentPage()); // center new page size in viewport
     });    
-    elements.pageLefts.forEach(e => e.addEventListener('click', () => movePageLeft()));
-    elements.pageRights.forEach(e => e.addEventListener('click', () => movePageRight()));
+    elements.pageLefts.forEach(e => e.addEventListener('click', () => moveLeft()));
+    elements.pageRights.forEach(e => e.addEventListener('click', () => moveRight()));
   });
 }
 
 exports.init = init;
 exports.delay = delay;
-exports.moveToPage = moveToPage;
-exports.movePageLeft = movePageLeft;
-exports.movePageRight = movePageRight;
-exports.movePageleftTo = movePageleftTo;
-exports.movePageRightTo = movePageRightTo;
+exports.moveTo = moveTo;
+exports.moveLeft = moveLeft;
+exports.moveRight = moveRight;
+exports.movePageToLeft = movePageToLeft;
+exports.movePageToRight = movePageToRight;
 exports.getCurrentPage = getCurrentPage;
 exports.getPages = getPages;
 

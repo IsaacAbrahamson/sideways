@@ -1,10 +1,21 @@
-const sideways = document.querySelector('.sideways')
-const container = document.querySelector('.sideways > .pages')
-const pageLefts = document.querySelectorAll('.page-left')
-const pageRights = document.querySelectorAll('.page-right')
+// TODO: remove this file as it doesn't update
 
-const pages = document.querySelectorAll('.page')
-const numPages = pages.length
+let sideways = document.querySelector('.sideways')
+let container = document.querySelector('.sideways > .pages')
+let pageLefts = document.querySelectorAll('.page-left')
+let pageRights = document.querySelectorAll('.page-right')
+
+let pages = document.querySelectorAll('.page')
+let numPages = pages.length
+
+function update() {
+  sideways = document.querySelector('.sideways')
+  container = document.querySelector('.sideways > .pages')
+  pageLefts = document.querySelectorAll('.page-left')
+  pageRights = document.querySelectorAll('.page-right')
+  pages = document.querySelectorAll('.page')
+  numPages = pages.length
+}
 
 export default {
   sideways,
@@ -13,4 +24,5 @@ export default {
   pageRights,
   pages,
   numPages,
+  update,
 }
