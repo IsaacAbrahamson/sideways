@@ -111,3 +111,8 @@ async function moveSomewhere() {
   sideways.moveToPage(1)
 }
 ```
+### sideways.getPages()
+Returns an array of all the page DOM nodes.
+```javascript
+sideways.getPages()
+```

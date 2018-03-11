@@ -8,6 +8,7 @@ let currentPage = 0
 // exported functions
 const delay = ms => new Promise(resolve => setTimeout(resolve, ms))
 const getCurrentPage = () => currentPage
+const getPages = () => elements.pages
 
 function moveToPage(pageNumber) {
   elements.container.style.transform = `translate3d(-${elements.sideways.offsetWidth * pageNumber}px, 0px, 0px)`
@@ -28,13 +29,19 @@ async function movePageRight() {
   styles.removeAnimation()
 }
 
-// TODO: functions to move directly to one page bypassing pages inbetween
-function movePageleftTo(pageNumber) {
-
+// TODO: move dom elements to work correctly
+async function movePageleftTo(pageNumber) {
+  styles.addAnimation()
+  moveToPage(pageNumber)  
+  await delay(300)
+  styles.removeAnimation()
 }
 
-function movePageRightTo(pageNumber) {
-
+async function movePageRightTo(pageNumber) {
+  styles.addAnimation()
+  moveToPage(pageNumber)  
+  await delay(300)
+  styles.removeAnimation()
 }
 
 
@@ -47,4 +54,5 @@ export {
   movePageleftTo,
   movePageRightTo,
   getCurrentPage,
+  getPages,
 }
