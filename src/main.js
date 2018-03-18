@@ -4,18 +4,17 @@ import * as utils from './utils'
 
 
 function init(startingPage) {
-  document.addEventListener('DOMContentLoaded', () => {    
-    utils.moveTo(startingPage)
-    styles.load()
+  utils.moveTo(startingPage)
+  styles.load()
+  styles.updateWidth() // ensure correct width with if using scrollbars
 
-    // event listeners
-    window.addEventListener('resize', () => {
-      styles.updateWidth()
-      utils.moveTo(utils.getCurrentPage()) // center new page size in viewport
-    })    
-    elements.pageLefts.forEach(e => e.addEventListener('click', () => utils.moveLeft()))
-    elements.pageRights.forEach(e => e.addEventListener('click', () => utils.moveRight()))
-  })
+  // event listeners
+  window.addEventListener('resize', () => {
+    styles.updateWidth()
+    utils.moveTo(utils.getCurrentPage()) // center new page size in viewport
+  })    
+  elements.pageLefts.forEach(e => e.addEventListener('click', () => utils.moveLeft()))
+  elements.pageRights.forEach(e => e.addEventListener('click', () => utils.moveRight()))
 }
 
 

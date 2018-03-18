@@ -180,18 +180,17 @@ async function movePageToRight(pageNumber) {
 }
 
 function init(startingPage) {
-  document.addEventListener('DOMContentLoaded', () => {    
-    moveTo(startingPage);
-    styles.load();
+  moveTo(startingPage);
+  styles.load();
+  styles.updateWidth(); // ensure correct width with if using scrollbars
 
-    // event listeners
-    window.addEventListener('resize', () => {
-      styles.updateWidth();
-      moveTo(getCurrentPage()); // center new page size in viewport
-    });    
-    elements.pageLefts.forEach(e => e.addEventListener('click', () => moveLeft()));
-    elements.pageRights.forEach(e => e.addEventListener('click', () => moveRight()));
-  });
+  // event listeners
+  window.addEventListener('resize', () => {
+    styles.updateWidth();
+    moveTo(getCurrentPage()); // center new page size in viewport
+  });    
+  elements.pageLefts.forEach(e => e.addEventListener('click', () => moveLeft()));
+  elements.pageRights.forEach(e => e.addEventListener('click', () => moveRight()));
 }
 
 exports.init = init;
