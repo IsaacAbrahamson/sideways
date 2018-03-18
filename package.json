@@ -1,6 +1,6 @@
 {
   "name": "sideways",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "homepage": "http://sideways.isaacabrahamson.com",
   "repository": {
     "type": "git",
@@ -12,8 +12,7 @@
   "license": "MIT",
   "scripts": {
     "build": "rollup ./src/main.js --output.format umd --name \"sideways\" --output.file index.js",
-    "compress": "uglifyjs index.js --compress -o index.min.js",
-    "mangle": "uglifyjs index.js --mangle -o index.min.js",
+    "uglify": "uglifyjs index.js --compress --mangle -o index.min.js",
     "test": "copy ./index.min.js ./test/index.min.js"
   },
   "devDependencies": {

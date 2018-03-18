@@ -108,21 +108,29 @@ const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
 const getCurrentPage = () => currentPage;
 const getPages = () => pages$1;
 
-function moveTo(pageNumber) {
+async function moveTo(pageNumber) {
+  // Remove scrollbar if moving from page with scrollbar.
+  if (pages$1[currentPage].classList.contains('sw-scroll')) pages$1[currentPage].style.overflowY = 'hidden';
+
   elements.container.style.transform = `translate3d(-${elements.sideways.offsetWidth * pageNumber}px, 0px, 0px)`;
   currentPage = pageNumber;
+
+  if (pages$1[currentPage].classList.contains('sw-scroll')) {
+    await delay(300); // page move transition
+    pages$1[currentPage].style.overflowY = 'scroll';
+  }
 }
 
 async function moveLeft() {
   styles.addAnimation();
-  moveTo(--currentPage);  
+  moveTo(currentPage - 1);  
   await delay(300);
   styles.removeAnimation();
 }
 
 async function moveRight() {
   styles.addAnimation();
-  moveTo(++currentPage);
+  moveTo(currentPage + 1);
   await delay(300);
   styles.removeAnimation();
 }
@@ -180,8 +188,8 @@ async function movePageToRight(pageNumber) {
 }
 
 function init(startingPage) {
-  moveTo(startingPage);
   styles.load();
+  moveTo(startingPage);
   styles.updateWidth(); // ensure correct width with if using scrollbars
 
   // event listeners

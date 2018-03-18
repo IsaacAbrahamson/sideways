@@ -4,8 +4,8 @@ import * as utils from './utils'
 
 
 function init(startingPage) {
-  utils.moveTo(startingPage)
   styles.load()
+  utils.moveTo(startingPage)
   styles.updateWidth() // ensure correct width with if using scrollbars
 
   // event listeners
